@@ -37,7 +37,7 @@ def move_player(game_state: dict[str, list[str] | str | bool | int],
               new_room == "mirror_chamber"):
             print("Вы прошли сквозь зеркала, однако у вас не получилось выбраться.")
             return  # Не переходим в новую комнату и не увеличиваем шаги
-        
+
         game_state['current_room'] = new_room
         game_state['steps_taken'] += c.STEP_INCREMENT
         u.describe_current_room(game_state)
@@ -63,7 +63,8 @@ def take_item(game_state: dict[str, list[str] | str | bool | int],
             print("Вы не можете поднять этот предмет пока что... (solve)")
     else:
         print("Такого предмета здесь нет.")
-    
+
+
 def use_item(game_state: dict[str, list[str] | str | bool | int],
              item_name: str) -> None:
     """Позволяет игроку использовать предмет из инвентаря."""

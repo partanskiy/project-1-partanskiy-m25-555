@@ -77,7 +77,7 @@ def show_help(commands: list[str]):
                 if command == cmd_key.split()[0]:
                     found_command = cmd_key
                     break
-            
+
             if found_command:
                 print(f"  {found_command:<{c.HELP_COMMAND_WIDTH}} — "
                       f"{c.COMMANDS[found_command]}")
@@ -97,14 +97,14 @@ def trigger_trap(game_state: dict[str, list[str] | str | bool | int]) -> None:
     """Активирует ловушку, которая может убить игрока или удалить предмет."""
     print("Ловушка активирована! Пол стал дрожать...")
     if game_state['player_inventory'] != []:
-        seed = (game_state['steps_taken'] * c.TRAP_SEED_MULTIPLIER_WITH_ITEMS + 
-                len(game_state['player_inventory']))
+        seed = (game_state['steps_taken'] * c.TRAP_SEED_MULTIPLIER_WITH_ITEMS
+                + len(game_state['player_inventory']))
         delete_item_index = pseudo_random(seed, len(game_state['player_inventory']))
         deleted_item = game_state['player_inventory'].pop(delete_item_index)
         print(f"Вы потеряли {deleted_item}.")
     else:
-        seed = (game_state['steps_taken'] * c.TRAP_SEED_MULTIPLIER_EMPTY + 
-                c.TRAP_SEED_OFFSET)
+        seed = (game_state['steps_taken'] * c.TRAP_SEED_MULTIPLIER_EMPTY
+                + c.TRAP_SEED_OFFSET)
         damage = pseudo_random(seed, c.EVENT_TYPE_COUNT)
         if damage == c.CRITICAL_DAMAGE_VALUE:
             print("Неудачно упав, вы умерли...")
@@ -115,16 +115,16 @@ def trigger_trap(game_state: dict[str, list[str] | str | bool | int]) -> None:
 
 def random_event(game_state: dict[str, list[str] | str | bool | int]) -> None:
     """Генерирует случайные события во время игры (монетки, существа, звуки ловушки)."""
-    seed = (game_state['steps_taken'] + 
-            len(game_state['player_inventory']) * c.EVENT_SEED_MULTIPLIER + 
-            c.EVENT_SEED_OFFSET)
+    seed = (game_state['steps_taken']
+            + len(game_state['player_inventory']) * c.EVENT_SEED_MULTIPLIER
+            + c.EVENT_SEED_OFFSET)
     event = pseudo_random(seed, c.EVENT_PROBABILITY)
     if event == 0:
-        event_type_seed = (game_state['steps_taken'] * 
-                           c.EVENT_TYPE_SEED_MULTIPLIER_STEPS + 
-                           len(game_state['player_inventory']) * 
-                           c.EVENT_TYPE_SEED_MULTIPLIER_INVENTORY + 
-                           c.EVENT_TYPE_SEED_OFFSET)
+        event_type_seed = (game_state['steps_taken']
+                           * c.EVENT_TYPE_SEED_MULTIPLIER_STEPS
+                           + len(game_state['player_inventory'])
+                           * c.EVENT_TYPE_SEED_MULTIPLIER_INVENTORY
+                           + c.EVENT_TYPE_SEED_OFFSET)
         event_type = pseudo_random(event_type_seed, c.EVENT_TYPE_COUNT)
         if event_type == 0:
             if "coin" not in game_state['player_inventory']:
