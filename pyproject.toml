@@ -1,7 +1,7 @@
 [project]
 name = "project-1-partanskiy-m25-555"
 version = "0.1.0"
-description = ""
+description = "Текстовая приключенческая игра-лабиринт на Python"
 authors = [
     {name = "Ilya Partanskiy",email = "partanskiy.im@gmail.com"}
 ]
@@ -10,10 +10,8 @@ requires-python = ">=3.12"
 dependencies = [
 ]
 
-[dependency-groups]
-dev = [
-    "ruff (>=0.13.3,<0.14.0)"
-]
+[tool.poetry.group.dev.dependencies]
+ruff = ">=0.13.3,<0.14.0"
 
 
 [build-system]

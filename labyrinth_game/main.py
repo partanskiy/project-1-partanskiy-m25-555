@@ -3,27 +3,29 @@ from . import player_actions as pa
 from . import utils as u
 
 game_state = {
-        'player_inventory': [], # Инвентарь игрока
-        'current_room': 'entrance', # Текущая комната
-        'game_over': False, # Значения окончания игры
-        'steps_taken': 0 # Количество шагов
-  }
+    'player_inventory': [],  # Инвентарь игрока
+    'current_room': 'entrance',  # Текущая комната
+    'game_over': False,  # Значения окончания игры
+    'steps_taken': 0,  # Количество шагов
+}
 
 def main():
+    """Основная функция игры - запускает игровой цикл."""
     print("Добро пожаловать в Лабиринт сокровищ!")
     u.describe_current_room(game_state)
     while not game_state['game_over']:
         command = pa.get_input("\nВведите команду: ")
         process_command(game_state, command)
-    #print(u.get_available_exits('entrance'))
-    #print(pa.move_player('entrance', 'north'))
 
 def process_command(game_state: dict[str, list[str] | str | bool | int],
                     command: str) -> None:
+    """Обрабатывает команды игрока и выполняет соответствующие действия."""
+    if command in ["north", "south", "east", "west"]:
+        command = "go " + command
     command, *args = command.split()
     match command:
         case "help":
-            u.show_help()
+            u.show_help(args)
         case "look":
             u.describe_current_room(game_state)
         case "use":
